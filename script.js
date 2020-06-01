@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('form.new_task');
-  const input = form.querySelector('input.task_title');
   const tasksList = document.querySelector('#tasks');
 
   const createCheckboxNode = () => {
@@ -41,11 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     result.addEventListener('click', (clickEditEvent) => {
       const editForm = form.cloneNode(true);
-      const editInput = editForm.querySelector('input.task_title')
+      const editInput = editForm.querySelector('input.task_title');
+      const editCategorySelect = editForm.querySelector('select');
 
       editForm.addEventListener('submit', (submitEvent) => {
         submitEvent.preventDefault();
-        taskNode.replaceWith(createTask(editInput.value));
+        taskNode.replaceWith(createTask(editInput.value, editCategorySelect.value));
       })
 
       taskNode.appendChild(editForm);
@@ -63,20 +63,30 @@ document.addEventListener('DOMContentLoaded', () => {
     return result;
   }
 
-  const createTask = (text) => {
+  const createCategory = (categoryText) => {
+    const result = document.createElement('span');
+    result.textContent = categoryText;
+    return result;
+  }
+
+  const createTask = (text, categoryText) => {
     const result = document.createElement('li');
     result.className = 'task';
 
     result.appendChild(createCheckbox(result));
     result.append(text);
-    result.append(createButtons(result));
+    result.appendChild(createCategory(categoryText));
+    result.appendChild(createButtons(result));
 
     return result;
   }
 
+  const input = form.querySelector('input.task_title');
+  const categorySelect = form.querySelector('select');
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    tasksList.appendChild(createTask(input.value));
+    tasksList.appendChild(createTask(input.value, categorySelect.value));
     form.reset();
   })
 })
