@@ -1,0 +1,15 @@
+.content {
+  padding-top: 50px;
+  width: 60%;
+  margin: auto;
+}
+
+.tasks {
+  list-style: none;
+}
+
+.task {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+}

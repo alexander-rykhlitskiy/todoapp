@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const createDeleteButton = (taskNode) => {
     const result = document.createElement('button');
     result.textContent = 'Delete';
-    result.className = 'delete-button';
+    result.className = 'delete-button btn btn-danger';
     result.addEventListener('click', (event) => {
       taskNode.remove();
     })
@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const createEditButton = (taskNode) => {
     const result = document.createElement('button');
     result.textContent = 'Edit';
+    result.className = 'btn btn-secondary'
 
     result.addEventListener('click', (clickEditEvent) => {
       const editForm = form.cloneNode(true);
@@ -53,14 +54,22 @@ document.addEventListener('DOMContentLoaded', () => {
     return result;
   }
 
+  const createButtons = (taskNode) => {
+    const result = document.createElement('div');
+
+    result.appendChild(createDeleteButton(taskNode));
+    result.appendChild(createEditButton(taskNode));
+
+    return result;
+  }
+
   const createTask = (text) => {
     const result = document.createElement('li');
     result.className = 'task';
 
     result.appendChild(createCheckbox(result));
     result.append(text);
-    result.appendChild(createDeleteButton(result));
-    result.appendChild(createEditButton(result));
+    result.append(createButtons(result));
 
     return result;
   }
