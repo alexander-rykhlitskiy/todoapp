@@ -24,12 +24,23 @@ document.addEventListener('DOMContentLoaded', () => {
     return result;
   }
 
+  const createDeleteButton = (taskNode) => {
+    const result = document.createElement('button');
+    result.textContent = 'Delete';
+    result.className = 'delete-button';
+    result.addEventListener('click', (event) => {
+      taskNode.remove();
+    })
+    return result;
+  }
+
   const createTask = (text) => {
     const result = document.createElement('li');
     result.className = 'task';
 
     result.appendChild(createCheckbox(result));
     result.append(text);
+    result.appendChild(createDeleteButton(result));
 
     return result;
   }
