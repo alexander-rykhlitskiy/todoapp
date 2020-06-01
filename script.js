@@ -34,6 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
     return result;
   }
 
+  const createEditButton = (taskNode) => {
+    const result = document.createElement('button');
+    result.textContent = 'Edit';
+
+    result.addEventListener('click', (clickEditEvent) => {
+      const editForm = form.cloneNode(true);
+      const editInput = editForm.querySelector('input.task_title')
+
+      editForm.addEventListener('submit', (submitEvent) => {
+        submitEvent.preventDefault();
+        taskNode.replaceWith(createTask(editInput.value));
+      })
+
+      taskNode.appendChild(editForm);
+    })
+
+    return result;
+  }
+
   const createTask = (text) => {
     const result = document.createElement('li');
     result.className = 'task';
@@ -41,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     result.appendChild(createCheckbox(result));
     result.append(text);
     result.appendChild(createDeleteButton(result));
+    result.appendChild(createEditButton(result));
 
     return result;
   }
